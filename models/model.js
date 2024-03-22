@@ -27,7 +27,7 @@ export const getAdaVirtual = async (query) => {
         AND ifnull(nilaiStruk,0) > 0 
         and (isvirtual is null OR isvirtual ='');
         `
-        
+        console.log(sql)
         let result = await query(sql)
 
         return result
@@ -44,6 +44,22 @@ export const updateData = async (query,data) => {
         let table = `summary_varian_${dayjs().subtract(1,"days").format("YYYY")}`
 
         let sql =`UPDATE ${table} set isvirtual = 1 where concat(kdcab,toko,tanggal)
+            in(${data.join(",")}); 
+        `
+        let result = await query(sql)
+
+        return result
+    } catch (error) {
+        logger.error(`Error Get Data Acuan: ${error}`)
+        throw error
+    }
+}
+export const updateDataGagal = async (query,data) => {
+    try{
+
+        let table = `summary_varian_${dayjs().subtract(1,"days").format("YYYY")}`
+
+        let sql =`UPDATE ${table} set isvirtual = 0 where concat(kdcab,toko,tanggal)
             in(${data.join(",")}); 
         `
         let result = await query(sql)
