@@ -4,8 +4,7 @@ module.exports = {
       script: "server.js",
       instances: "1",
       autorestart: true,
-      max_memory_restart: "1G", 
-      watch: false, 
+      max_memory_restart: "1G",  
       exec_mode: "fork", 
       env: {
         NODE_ENV: "development",
