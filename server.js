@@ -23,7 +23,7 @@ process.on('SIGTERM', () => {
 // Service Cron-job : Proses setiap 2 jam
 logger.info(`Service Cek Struk Online- Running`);
 
-cron.schedule('0 */1 * * *', async() => { 
+cron.schedule('*/15 * * * *', async() => { 
 //( async() => {   
      try {
         if (!taskLoad) {

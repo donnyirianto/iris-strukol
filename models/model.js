@@ -6,7 +6,7 @@ export const listAcuanVritual = async (query) => {
 
         let sql = `select REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(singkatan, '$', ''), ')', ''), '%', ''), ',', ''), '-', ''), '/', ''),'(','') as singkatan from m_acuan_strukol;`
         let result = await query(sql)
-
+        console.log(sql)
         return result
     } catch (error) {
         logger.error(`Error Get Data Acuan: ${error}`)
@@ -22,16 +22,17 @@ export const getAdaVirtual = async (query) => {
         cast(tanggal as char) as tanggal,kdcab,toko,jmlstruk,isistruk,isvirtual
         from ${table} 
         where 
-        LEFT(tanggal,7) = '${dayjs().subtract(1,"days").format("YYYY-MM")}'
+        LEFT(tanggal,7) = '${dayjs().subtract(14,"days").format("YYYY-MM")}'
         and ifnull(jmlStruk,0) > 0
         AND ifnull(nilaiStruk,0) > 0 
         and (isvirtual is null OR isvirtual ='');
         `
-        console.log(sql)
-        let result = await query(sql)
 
+        let result = await query(sql)
+        console.log(sql)
         return result
     } catch (error) {
+        console.log(error)
         logger.error(`Error Get Data Acuan: ${error}`)
         throw error
     }
