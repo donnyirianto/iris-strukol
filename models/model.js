@@ -22,10 +22,10 @@ export const getAdaVirtual = async (query) => {
         cast(tanggal as char) as tanggal,kdcab,toko,jmlstruk,isistruk,isvirtual
         from ${table} 
         where 
-        LEFT(tanggal,7) = '${dayjs().subtract(14,"days").format("YYYY-MM")}'
+        tanggal >= '${dayjs().subtract(1,"days").format("YYYY-MM")}-01'
         and ifnull(jmlStruk,0) > 0
         AND ifnull(nilaiStruk,0) > 0 
-        and (isvirtual is null OR isvirtual ='');
+        and (isvirtual is null OR isvirtual ='' OR isvirtual =0);
         `
 
         let result = await query(sql)
